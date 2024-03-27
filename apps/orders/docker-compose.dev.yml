@@ -1,14 +1,5 @@
 version: "3"
 services:
-  db:
-    image: postgres:12
-    ports:
-      - ${DB_PORT}:5432
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - postgres:/var/lib/postgresql/data
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
@@ -29,5 +20,14 @@ services:
       - --config=/etc/otel-config.yml
     depends_on:
       - jaeger
+  db:
+    image: postgres:12
+    ports:
+      - ${DB_PORT}:5432
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
 volumes:
   postgres: ~
